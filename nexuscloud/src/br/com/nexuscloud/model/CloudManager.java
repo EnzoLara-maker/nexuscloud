@@ -5,28 +5,28 @@ import java.util.Set;
 
 /**
  * Banco de dados principal da NexusCloud: associa cada Cliente ao conjunto de Servidores que ele possui.
- * Também é responsável pelo cálculo financeiro (fatura). (RA: [SEU RA])
+ * Também é responsável pelo cálculo financeiro (fatura). (RA: 25178394-2)
  */
 public class CloudManager {
 
     // RN02 - Map declarado pela INTERFACE (Map<>) e instanciado com HashMap, a implementação baseada em Hash
     // (busca por chave em tempo médio constante). Chave = Cliente; Valor = Set<Servidor>, que não aceita
-    // duplicados nem garante ordem. Funciona porque Cliente e Servidor sobrescrevem equals() e hashCode(). (RA: [SEU RA])
+    // duplicados nem garante ordem. Funciona porque Cliente e Servidor sobrescrevem equals() e hashCode(). (RA: 25178394-2)
     private Map<Cliente, Set<Servidor>> bancoDeDados = new HashMap<>();
 
     // Registra um cliente no banco de dados com um conjunto de servidores vazio.
-    // putIfAbsent evita apagar os servidores de um cliente que já estava registrado (sem usar if). (RA: [SEU RA])
+    // putIfAbsent evita apagar os servidores de um cliente que já estava registrado (sem usar if). (RA: 25178394-2)
     public void registrarCliente(Cliente cliente) {
         bancoDeDados.putIfAbsent(cliente, new HashSet<>());
     }
 
     // Adiciona um servidor ao conjunto do cliente. computeIfAbsent devolve o conjunto existente (ou cria um
-    // novo caso o cliente ainda não esteja registrado) e o add() ignora o servidor se o IP já existir. (RA: [SEU RA])
+    // novo caso o cliente ainda não esteja registrado) e o add() ignora o servidor se o IP já existir. (RA: 25178394-2)
     public void adicionarServidor(Cliente cliente, Servidor servidor) {
         bancoDeDados.computeIfAbsent(cliente, chave -> new HashSet<>()).add(servidor);
     }
 
-    // Getter do banco de dados: útil para consultas e depuração. (RA: [SEU RA])
+    // Getter do banco de dados: útil para consultas e depuração. (RA: 25178394-2)
     public Map<Cliente, Set<Servidor>> getBancoDeDados() {
         return bancoDeDados;
     }
@@ -37,7 +37,7 @@ public class CloudManager {
      * 2) stream() abre o fluxo de Servidores;
      * 3) filter() deixa passar APENAS os servidores ligados (servidor desligado não gera cobrança);
      * 4) mapToDouble extrai o precoPorHora de cada um;
-     * 5) sum() devolve o total. (RA: [SEU RA])
+     * 5) sum() devolve o total. (RA: 25178394-2)
      */
     public double calcularFaturaAtiva(Cliente c) {
         return bancoDeDados.getOrDefault(c, Set.of())
